@@ -38,7 +38,7 @@ public class ImagenService {
     public Response<Imagen> guardarImagen(MultipartFile archivo){
         try {
             if(ImageIO.read(archivo.getInputStream()) == null){
-                return new Response<>(200, "", null);
+                return new Response<>(400, "Error", null);
             }
             File file = new File(archivo.getOriginalFilename());
             FileOutputStream fileWriter = new FileOutputStream(file);
@@ -55,6 +55,10 @@ public class ImagenService {
         } catch (IOException e) {
             return new Response<>(400, "Imagen no valida!", null);
         }
+    }
+    
+    public Response<Imagen> getImagenes(){
+        return new Response<>(200, "Ok", imagenRepository.findAll());
     }
 
 }
