@@ -19,13 +19,4 @@ public class Response <T>{
 	private int codigo;
     private String descripcion;
     private List<T> cuerpo;
-    
-	/*public Response(int codigo, String descripcion, List<T> cuerpo) {
-		super();
-		this.codigo = codigo;
-		this.descripcion = descripcion;
-		this.cuerpo = cuerpo;
-	}*/
-    
-    
 }

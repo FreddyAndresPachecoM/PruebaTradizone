@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.ista.tradizone.di.app.utils.Imagen;
-
 import lombok.Data;
 
 @Data
