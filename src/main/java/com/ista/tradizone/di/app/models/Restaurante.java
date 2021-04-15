@@ -17,7 +17,8 @@ public class Restaurante {
 	private String id;
     
 	private String nombreRestaurante;
-    
+	private Imagen logo;
+     
 	@Indexed(direction = IndexDirection.ASCENDING)
 	private boolean estado;
 	private String telefono;

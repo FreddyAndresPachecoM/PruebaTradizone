@@ -13,8 +13,6 @@ public class Local {
 
 	private String avPrincipal;
 	private String avSecundaria;
-	private String latitud;
-	private String altitud;
 	private boolean estado;
 	private int capacidad;
 	private String diasLaborables;
