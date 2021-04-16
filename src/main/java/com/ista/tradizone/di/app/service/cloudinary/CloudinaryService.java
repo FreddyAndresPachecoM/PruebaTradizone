@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
@@ -39,5 +41,10 @@ public class CloudinaryService {
     public Map<?,?> eliminarImagen(String id)throws IOException {
         Map<?,?> imagenData = cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
         return imagenData;
+    }
+
+    public boolean esImagen(MultipartFile multipartFile)throws IOException{
+        if(ImageIO.read(multipartFile.getInputStream()) != null) return true;
+        else return false;
     }
 }
