@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models;
+package com.ista.tradizone.di.app.models.imagenes;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,18 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "locales")
-public class Local {
+@Document(collection = "imagenes")
+public class Imagen {
     
     @Id
     private String id;
-
-    private String nombreIdentificador;
-    private String direccion;
-    private String telefono;
-    private String celular;
     
-
-    /** Relaciones: ------------------------------ */
-    private String idRestaurante;
+    private String nombre;
+    private String url;
+    private String cloudinaryId;
 }

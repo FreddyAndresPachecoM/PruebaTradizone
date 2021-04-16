@@ -12,18 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "locales")
-public class Local {
+@Document(collection = "platos_local")
+public class PlatoLocal {
     
     @Id
     private String id;
 
-    private String nombreIdentificador;
-    private String direccion;
-    private String telefono;
-    private String celular;
-    
-
-    /** Relaciones: ------------------------------ */
-    private String idRestaurante;
+    /** Relaciones: ------------------------------------------ */
+    private String idLocal;
+    private String idPlato;
 }

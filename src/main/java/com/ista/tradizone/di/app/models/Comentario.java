@@ -1,5 +1,7 @@
 package com.ista.tradizone.di.app.models;
 
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,17 +10,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "imagenes")
-public class Imagen {
+@Document(collection = "comentarios")
+public class Comentario {
     
     @Id
     private String id;
+    
+    private String cuerpo;
+    private LocalDate fechaPublicacion;
 
-    private String nombre;
-    private String url;
-    private String cloudinaryId;
+
+    /** Relaciones: ---------------------------- */
+    private String idUsuario;
+    private String idPlato;
 }

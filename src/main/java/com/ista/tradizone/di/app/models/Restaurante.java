@@ -1,27 +1,26 @@
 package com.ista.tradizone.di.app.models;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Document(collection = "Restaurantes")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Document(collection = "restaurantes")
 public class Restaurante {
-
-	@Id
-	private String id;
     
-	private String nombreRestaurante;
-	private Imagen logo;
-     
-	@Indexed(direction = IndexDirection.ASCENDING)
-	private boolean estado;
-	private String telefono;
-	private Cuenta cuenta;
-	private List<Local> locales;
+    @Id
+    private String id;
+    private String nombre;
+    private String slogan;
+
+
+    /** relaciones: -------------------------  */
+    private String idUsuario;
 }

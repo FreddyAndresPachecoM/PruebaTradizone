@@ -1,33 +1,28 @@
 package com.ista.tradizone.di.app.models;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Document(collection = "Platos")
-public class Plato{
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Document(collection = "platos")
+public class Plato {
+    
+    @Id
+    private String id;
 
-	@Id
-	private String id;
     private String nombre;
-
-    @Indexed(direction = IndexDirection.ASCENDING)
     private String descripcion;
-    private boolean estado;
-	private double precio;
-	private Imagen imagen;
-	private Restaurante restaurante;
-	private List<CategoriaProducto> categorias;
-	private List<Recomendacion> recomendaciones;
+    private String ingredientes;
+    private double precio;
 
-	private String ingredientes;
-	private String preparacion;
-	private String historia;
-	
+    /** Relaciones: --------------------------------------- */
+    private String idCategoria;
 }
