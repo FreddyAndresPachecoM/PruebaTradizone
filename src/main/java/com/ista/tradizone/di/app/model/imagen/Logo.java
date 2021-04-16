@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Document(collection = "logos")
-public class Logo {
+public class Logo extends Imagen{
     
     /** Relaciones: --------------------------------- */
     private String idRestaurante;
