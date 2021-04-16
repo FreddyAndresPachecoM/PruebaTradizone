@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models.imagenes;
+package com.ista.tradizone.di.app.model.imagen;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

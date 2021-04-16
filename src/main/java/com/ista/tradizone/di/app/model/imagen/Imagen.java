@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models;
+package com.ista.tradizone.di.app.model.imagen;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,15 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "horarios")
-public class Horario {
+@Document(collection = "imagenes")
+public class Imagen {
     
     @Id
     private String id;
-
-    private String horaInicio;
-    private String horaFin;
-
-    /** Relaciones: ----------------------------- */
-    private String idLocal;
+    
+    private String nombre;
+    private String url;
+    private String cloudinaryId;
 }

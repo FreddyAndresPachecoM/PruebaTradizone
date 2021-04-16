@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models;
+package com.ista.tradizone.di.app.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,16 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "reacciones")
-public class Reaccion {
+@Document(collection = "locales")
+public class Local {
     
     @Id
     private String id;
 
-    private boolean meGusta;
+    private String nombreIdentificador;
+    private String direccion;
+    private String telefono;
+    private String celular;
     
 
-    /** Relaciones: un megusta por usuario en cada plato: ----------------------------------- */
-    private String idUsuario;
-    private String idPlato;
+    /** Relaciones: ------------------------------ */
+    private String idRestaurante;
 }

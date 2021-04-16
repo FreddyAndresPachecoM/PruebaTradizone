@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models;
+package com.ista.tradizone.di.app.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,17 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "platos")
-public class Plato {
+@Document(collection = "restaurantes")
+public class Restaurante {
     
     @Id
     private String id;
-
     private String nombre;
-    private String descripcion;
-    private String ingredientes;
-    private double precio;
+    private String slogan;
 
-    /** Relaciones: --------------------------------------- */
-    private String idCategoria;
+
+    /** relaciones: -------------------------  */
+    private String idUsuario;
 }

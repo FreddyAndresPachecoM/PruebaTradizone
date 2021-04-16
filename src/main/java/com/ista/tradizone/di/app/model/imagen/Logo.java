@@ -1,4 +1,4 @@
-package com.ista.tradizone.di.app.models.imagenes;
+package com.ista.tradizone.di.app.model.imagen;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "imagenes_productos")
-public class ImagenPlato {
+@Document(collection = "logos")
+public class Logo {
     
     /** Relaciones: --------------------------------- */
-    private String idPlato;
+    private String idRestaurante;
 }

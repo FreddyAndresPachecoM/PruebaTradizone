@@ -1,4 +1,6 @@
-package com.ista.tradizone.di.app.models;
+package com.ista.tradizone.di.app.model;
+
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,18 +14,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@Document(collection = "locales")
-public class Local {
+@Document(collection = "comentarios")
+public class Comentario {
     
     @Id
     private String id;
-
-    private String nombreIdentificador;
-    private String direccion;
-    private String telefono;
-    private String celular;
     
+    private String cuerpo;
+    private LocalDate fechaPublicacion;
 
-    /** Relaciones: ------------------------------ */
-    private String idRestaurante;
+
+    /** Relaciones: ---------------------------- */
+    private String idUsuario;
+    private String idPlato;
 }
