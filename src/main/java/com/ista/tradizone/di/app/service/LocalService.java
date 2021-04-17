@@ -21,13 +21,10 @@ public class LocalService {
 
     public Response<Local> crearSucursal(Local sucursal, String idRestaurante){
         boolean existeRestaurante = restauranteRepository.findById(idRestaurante).isPresent();
-        boolean existeSucursal = localRepository.findByNombreIdentificador(sucursal.getNombreIdentificador()) != null;
-        if(existeRestaurante && !existeSucursal){
-            sucursal.setIdRestaurante(idRestaurante);
-            localRepository.insert(sucursal); 
-            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", null);
+        if(existeRestaurante){
+            sucursal.setIdRestaurante(idRestaurante); 
+            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", localRepository.insert(sucursal));
         }else
-            return new Response<>(HttpStatus.BAD_REQUEST, "¡No se pudo completar la solicitud debido a que intenta duplicar la sucursal o el restaurante no existe!", null);
+            return new Response<>(HttpStatus.BAD_REQUEST, "¡No se pudo completar la solicitud porque intenta acceder a una recurso que no existe!", null);
     }
-
 }

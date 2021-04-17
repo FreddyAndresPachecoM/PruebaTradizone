@@ -27,15 +27,14 @@ public class UsuarioService {
 
     public Response<Usuario> crearUsuario(Usuario usuario){
         if(usuarioRepository.findByCorreo(usuario.getCorreo()) == null){
-            usuarioRepository.insert(usuario);
-            usuario = usuarioRepository.findByCorreo(usuario.getCorreo());
+            usuario = usuarioRepository.insert(usuario);
             Avatar avatar = new Avatar();
             avatar.setNombre("");
             avatar.setUrl("https://res.cloudinary.com/dvtvnjgle/image/upload/v1618590004/perfil_por_defecto_e4cdu1.png");
             avatar.setCloudinaryId(imagenPorDefecto);
             avatar.setIdUsuario(usuario.getId());
             avatarRepository.insert(avatar);
-            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", null);
+            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", usuario);
         }else
             return new Response<>(HttpStatus.BAD_REQUEST, "¡Este correo ya es usado por otro usuario!", null);
     }
