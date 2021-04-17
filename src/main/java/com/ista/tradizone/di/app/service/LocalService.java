@@ -19,12 +19,28 @@ public class LocalService {
     private RestauranteRepository restauranteRepository;
 
 
-    public Response<Local> crearSucursal(Local sucursal, String idRestaurante){
+    public Response<Local> crearLocal(Local local, String idRestaurante){
         boolean existeRestaurante = restauranteRepository.findById(idRestaurante).isPresent();
         if(existeRestaurante){
-            sucursal.setIdRestaurante(idRestaurante); 
-            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", localRepository.insert(sucursal));
+            local.setIdRestaurante(idRestaurante); 
+            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", localRepository.insert(local));
         }else
-            return new Response<>(HttpStatus.BAD_REQUEST, "¡No se pudo completar la solicitud porque intenta acceder a una recurso que no existe!", null);
+            return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡¡Esta intentando acceder a un recurso que no existe!", null);
+    }
+
+
+    public Response<Local> getLocalesPorRestaurante(String idRestaurante){
+        if(restauranteRepository.findById(idRestaurante).isPresent()){
+            return new Response<>(HttpStatus.Ok, "¡Ok!", localRepository.findByIdRestaurante(idRestaurante));
+        }else
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Esta intentando acceder a un recurso que no existe!", null);
+    }
+
+
+    public Response<Local> getLocalPorId(String idLocal){
+        if(localRepository.findById(idLocal).isPresent()){
+            return new Response<>(HttpStatus.Ok, "¡Ok!", localRepository.findById(idLocal).get());
+        }else
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Esta intentando acceder a un recurso que no existe!", null);
     }
 }

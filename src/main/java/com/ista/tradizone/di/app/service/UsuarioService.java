@@ -21,13 +21,11 @@ public class UsuarioService {
     @Autowired
     private AvatarRepository avatarRepository;
 
-    /*@Autowired
-    private CloudinaryService cloudinaryService;*/
-
 
     public Response<Usuario> crearUsuario(Usuario usuario){
         if(usuarioRepository.findByCorreo(usuario.getCorreo()) == null){
             usuario = usuarioRepository.insert(usuario);
+            usuario.setContrasena("");
             Avatar avatar = new Avatar();
             avatar.setNombre("");
             avatar.setUrl("https://res.cloudinary.com/dvtvnjgle/image/upload/v1618590004/perfil_por_defecto_e4cdu1.png");
@@ -39,5 +37,8 @@ public class UsuarioService {
             return new Response<>(HttpStatus.BAD_REQUEST, "¡Este correo ya es usado por otro usuario!", null);
     }
 
-
+    
+    public Response<Usuario> getAllUsuarios(){
+        return new Response<>(HttpStatus.Ok, "Ok!", this.usuarioRepository.findAll());
+    }
 }
