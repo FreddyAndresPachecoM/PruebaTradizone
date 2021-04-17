@@ -22,7 +22,8 @@ public class Local {
     private String direccion;
     private String telefono;
     private String celular;
-    
+    private String horaInicio;
+    private String horaFin;
 
     /** Relaciones: ------------------------------ */
     private String idRestaurante;
