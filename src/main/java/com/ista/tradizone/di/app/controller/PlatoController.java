@@ -31,7 +31,7 @@ public class PlatoController {
 		return platoService.crearPlato(plato, idRestaurante);
 	}
 	
-	@PostMapping("/platos/imagen/{idPlato}")
+	@PostMapping("/platos/imagenPlato/{idPlato}")
 	public Response<ImagenPlato> crearImagenPlato(@RequestBody MultipartFile imagenPlato, @PathVariable String idPlato){
 		try {
 			return platoService.crearImagenPlato(imagenPlato, idPlato);
