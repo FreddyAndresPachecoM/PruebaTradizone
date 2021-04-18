@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,8 +35,8 @@ public class RestauranteController {
     }
 
 
-    @PostMapping()
-    public Response<Logo> crearLogo(MultipartFile logoRestaurante, String idRestaurante){
+    @PostMapping("/restaurantes/logo/{idRestaurante}")
+    public Response<Logo> crearLogo(@RequestParam MultipartFile logoRestaurante, @PathVariable String idRestaurante){
         try {
             return restauranteService.crearLogo(logoRestaurante, idRestaurante);
         } catch (IOException e) {
