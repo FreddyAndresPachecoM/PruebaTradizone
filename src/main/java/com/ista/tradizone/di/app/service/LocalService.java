@@ -25,7 +25,7 @@ public class LocalService {
         boolean existeRestaurante = restauranteRepository.findById(idRestaurante).isPresent();
         if(existeRestaurante){
             local.setIdRestaurante(idRestaurante);
-            if(local.getNombreIdentificador().equals("") || local.getNombreIdentificador().equals(null)) {
+            if(local.getNombreIdentificador().equals("")) {
                 local.setNombreIdentificador(defaultLocalName);
             }
             return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", localRepository.insert(local));

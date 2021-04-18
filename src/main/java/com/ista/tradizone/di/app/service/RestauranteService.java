@@ -6,6 +6,7 @@ import java.util.Map;
 import com.ista.tradizone.di.app.model.Restaurante;
 import com.ista.tradizone.di.app.model.imagen.Logo;
 import com.ista.tradizone.di.app.repository.RestauranteRepository;
+import com.ista.tradizone.di.app.repository.UsuarioRepository;
 import com.ista.tradizone.di.app.repository.imagen_repository.LogoRepository;
 import com.ista.tradizone.di.app.service.cloudinary.CloudinaryService;
 import com.ista.tradizone.di.app.util.HttpStatus;
@@ -27,14 +28,20 @@ public class RestauranteService {
     @Autowired
     private CloudinaryService cloudinaryService;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
 
     public Response<Restaurante> crearRestaurante(Restaurante restaurante, String idUsuario) {
-        boolean existeRestaurante = restauranteRepository.findByIdUsuario(idUsuario) != null;
-        if(!existeRestaurante){
-            restaurante.setIdUsuario(idUsuario);
-            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", restauranteRepository.insert(restaurante));
-        }else
-        return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un restaurante para este usuario!", null);
+        if(usuarioRepository.findById(idUsuario).isPresent()){
+            boolean existeRestaurante = restauranteRepository.findByIdUsuario(idUsuario) != null;
+            if(!existeRestaurante){
+                restaurante.setIdUsuario(idUsuario);
+                return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", restauranteRepository.insert(restaurante));
+            }else
+            return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un restaurante para este usuario!", null);
+        }else 
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
     }
 
 
