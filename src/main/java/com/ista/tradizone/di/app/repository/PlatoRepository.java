@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlatoRepository extends MongoRepository<Plato, String>{
-    
+
+	public Plato findByIdRestaurante(String idPlato);
 }

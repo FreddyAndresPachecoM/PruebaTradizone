@@ -25,4 +25,5 @@ public class Plato {
 
     /** Relaciones: --------------------------------------- */
     private String idCategoria;
+    private String idRestaurante;
 }

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ImagenPlatoRepository extends MongoRepository<ImagenPlato, String>{
     
+	public ImagenPlato findByIdPlato(String idPlato);
 }
