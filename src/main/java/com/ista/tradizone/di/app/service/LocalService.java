@@ -18,11 +18,16 @@ public class LocalService {
     @Autowired
     private RestauranteRepository restauranteRepository;
 
+    private String defaultLocalName = "Sucursal Principal";
+
 
     public Response<Local> crearLocal(Local local, String idRestaurante){
         boolean existeRestaurante = restauranteRepository.findById(idRestaurante).isPresent();
         if(existeRestaurante){
-            local.setIdRestaurante(idRestaurante); 
+            local.setIdRestaurante(idRestaurante);
+            if(local.getNombreIdentificador().equals("") || local.getNombreIdentificador().equals(null)) {
+                local.setNombreIdentificador(defaultLocalName);
+            }
             return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", localRepository.insert(local));
         }else
             return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡¡Esta intentando acceder a un recurso que no existe!", null);

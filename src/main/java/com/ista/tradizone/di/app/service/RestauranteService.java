@@ -3,10 +3,8 @@ package com.ista.tradizone.di.app.service;
 import java.io.IOException;
 import java.util.Map;
 
-import com.ista.tradizone.di.app.model.Local;
 import com.ista.tradizone.di.app.model.Restaurante;
 import com.ista.tradizone.di.app.model.imagen.Logo;
-import com.ista.tradizone.di.app.repository.LocalRepository;
 import com.ista.tradizone.di.app.repository.RestauranteRepository;
 import com.ista.tradizone.di.app.repository.imagen_repository.LogoRepository;
 import com.ista.tradizone.di.app.service.cloudinary.CloudinaryService;
@@ -25,44 +23,37 @@ public class RestauranteService {
 
     @Autowired
     private LogoRepository logoRepository;
-
-    @Autowired
-    private LocalRepository localRepository;
     
     @Autowired
     private CloudinaryService cloudinaryService;
 
-    private String defaultLocalName = "Sucursal Principal";
 
-
-    public Response<Restaurante> crearRestaurante(Restaurante restaurante, Local local, MultipartFile logoRestaurante, String idUsuario) throws IOException{
+    public Response<Restaurante> crearRestaurante(Restaurante restaurante, String idUsuario) {
         boolean existeRestaurante = restauranteRepository.findByIdUsuario(idUsuario) != null;
         if(!existeRestaurante){
+            restaurante.setIdUsuario(idUsuario);
+            return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", restauranteRepository.insert(restaurante));
+        }else
+        return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un restaurante para este usuario!", null);
+    }
+
+
+    public Response<Logo> crearLogo(MultipartFile logoRestaurante, String idRestaurante) throws IOException{
+        if(restauranteRepository.findById(idRestaurante).isPresent()){
             if(cloudinaryService.esImagen(logoRestaurante)){
-
-                restaurante.setIdUsuario(idUsuario);
-                restaurante = restauranteRepository.insert(restaurante);
-
                 Map<?,?> imagenData = cloudinaryService.subirImagen(logoRestaurante);
-
+    
                 Logo logo = new Logo();
-                logo.setIdRestaurante(restaurante.getId());
+                logo.setIdRestaurante(idRestaurante);
                 logo.setNombre((String)imagenData.get("original_filename"));
                 logo.setUrl((String)imagenData.get("url"));
                 logo.setCloudinaryId((String)imagenData.get("public_id"));
-
-                logoRepository.insert(logo);
-
-                local.setIdRestaurante(restaurante.getId());
-                local.setNombreIdentificador(defaultLocalName);
-
-                localRepository.insert(local);
-
-                return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", restaurante);
+    
+                return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", logoRepository.insert(logo));
             }else
             return new Response<>(HttpStatus.FILE_FORMAT_ERROR, "¡Este formato de archivo no esta permitido!", null);
         }else
-        return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un restaurante para este usuario!", null);
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
     }
 
 

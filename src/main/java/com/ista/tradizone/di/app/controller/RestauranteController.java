@@ -2,7 +2,6 @@ package com.ista.tradizone.di.app.controller;
 
 import java.io.IOException;
 
-import com.ista.tradizone.di.app.model.Local;
 import com.ista.tradizone.di.app.model.Restaurante;
 import com.ista.tradizone.di.app.model.imagen.Logo;
 import com.ista.tradizone.di.app.service.RestauranteService;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 
 @RestController
 @RequestMapping("/app")
@@ -30,14 +29,15 @@ public class RestauranteController {
 
 
     @PostMapping("/restaurantes/{idUsuario}")
-    public Response<Restaurante> crearRestaurante(
-        @RequestBody Restaurante restaurante, 
-        @RequestBody Local local, 
-        @RequestParam MultipartFile logoRestaurante, 
-        @PathVariable String idUsuario
-    ){
+    public Response<Restaurante> crearRestaurante(@RequestBody Restaurante restaurante, @PathVariable String idUsuario){
+        return restauranteService.crearRestaurante(restaurante, idUsuario);
+    }
+
+
+    @PostMapping()
+    public Response<Logo> crearLogo(MultipartFile logoRestaurante, String idRestaurante){
         try {
-            return restauranteService.crearRestaurante(restaurante, local, logoRestaurante, idUsuario);
+            return restauranteService.crearLogo(logoRestaurante, idRestaurante);
         } catch (IOException e) {
             return new Response<>(HttpStatus.FILE_FORMAT_ERROR, "¡Este formato de archivo no esta permitido!", null);
         }
