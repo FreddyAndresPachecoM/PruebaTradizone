@@ -40,18 +40,22 @@ public class RestauranteService {
 
     public Response<Logo> crearLogo(MultipartFile logoRestaurante, String idRestaurante) throws IOException{
         if(restauranteRepository.findById(idRestaurante).isPresent()){
-            if(cloudinaryService.esImagen(logoRestaurante)){
-                Map<?,?> imagenData = cloudinaryService.subirImagen(logoRestaurante);
-    
-                Logo logo = new Logo();
-                logo.setIdRestaurante(idRestaurante);
-                logo.setNombre((String)imagenData.get("original_filename"));
-                logo.setUrl((String)imagenData.get("url"));
-                logo.setCloudinaryId((String)imagenData.get("public_id"));
-    
-                return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", logoRepository.insert(logo));
+            boolean existeLogo = logoRepository.findByIdRestaurante(idRestaurante) != null;
+            if(!existeLogo){
+                if(cloudinaryService.esImagen(logoRestaurante)){
+                    Map<?,?> imagenData = cloudinaryService.subirImagen(logoRestaurante);
+        
+                    Logo logo = new Logo();
+                    logo.setIdRestaurante(idRestaurante);
+                    logo.setNombre((String)imagenData.get("original_filename"));
+                    logo.setUrl((String)imagenData.get("url"));
+                    logo.setCloudinaryId((String)imagenData.get("public_id"));
+        
+                    return new Response<>(HttpStatus.CREATED, "¡Recurso creado con exito!", logoRepository.insert(logo));
+                }else
+                return new Response<>(HttpStatus.FILE_FORMAT_ERROR, "¡Este formato de archivo no esta permitido!", null);
             }else
-            return new Response<>(HttpStatus.FILE_FORMAT_ERROR, "¡Este formato de archivo no esta permitido!", null);
+            return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un logo para este restaurante!", null);
         }else
         return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
     }
