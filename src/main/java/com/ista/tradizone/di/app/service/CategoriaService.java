@@ -23,4 +23,12 @@ public class CategoriaService {
     public Response<Categoria> getAllCategorias(){
         return new Response<>(HttpStatus.Ok, "Ok!", categoriaRepository.findAll());
     }
+
+    
+    public Response<Categoria> getCategoriaPorId(String idCategoria){
+        if(categoriaRepository.findById(idCategoria).isPresent()){
+            return new Response<>(HttpStatus.Ok, "Ok!", categoriaRepository.findById(idCategoria).get());
+        }else
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡El recurso solicitado no existe!", null);
+    }
 }
