@@ -34,12 +34,12 @@ public class PlatoService {
 	
 	public Response<Plato> crearPlato(Plato plato, String idRestaurante){
 		if(restauranteRepository.findById(idRestaurante).isPresent()) {
-			boolean existePlato = platoRepository.findByIdRestaurante(idRestaurante) != null;
-			if(!existePlato) {
+			/*boolean existePlato = platoRepository.findByIdRestaurante(idRestaurante) != null;
+			if(!existePlato) {*/
 				plato.setIdRestaurante(idRestaurante);
 				return new Response<>(HttpStatus.CREATED, "!Recurso plato creado exitosamente!", platoRepository.insert(plato));
-			}else
-				return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un plato para este restaurante!", null);
+			/*}else
+				return new Response<>(HttpStatus.BAD_REQUEST, "¡Ya existe un plato para este restaurante!", null);*/
 		}else
 			return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
 	}
