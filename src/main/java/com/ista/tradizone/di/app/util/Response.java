@@ -27,4 +27,8 @@ public class Response <T>{
         this.descripcion = descripcion;
         this.objectResponse = objectResponse;
     }
+
+    public Response(int codigoHttp, String descripcion){
+
+    }
 }
