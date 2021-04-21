@@ -1,7 +1,9 @@
 package com.ista.tradizone.di.app.service;
 
 import com.ista.tradizone.di.app.model.Usuario;
+import com.ista.tradizone.di.app.model.imagen.Avatar;
 import com.ista.tradizone.di.app.repository.UsuarioRepository;
+import com.ista.tradizone.di.app.repository.imagen_repository.AvatarRepository;
 import com.ista.tradizone.di.app.service.autenticacion.AutenticacionService;
 import com.ista.tradizone.di.app.util.HttpStatus;
 import com.ista.tradizone.di.app.util.Response;
@@ -16,6 +18,9 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private AvatarRepository avatarRepository;
+
+    @Autowired
     private AutenticacionService autenticacionService;
 
     
@@ -24,13 +29,22 @@ public class UsuarioService {
     }
     
     public Response<Usuario> getUsuarioPorId(String idUsuario, String token){
-        Usuario usuario = usuarioRepository.findById(idUsuario).get();
-        if(usuario != null) {
+        if(usuarioRepository.findById(idUsuario).isPresent()) {
             if(autenticacionService.validarSesion(idUsuario, token)){
+                Usuario usuario = usuarioRepository.findById(idUsuario).get();
                 usuario.setContrasena("");
-                return new Response<>(HttpStatus.UNAUTHORIZED, "¡Usuario no autorizado!", usuario);
+                return new Response<>(HttpStatus.Ok, "¡oK!", usuario);
             }else
             return new Response<>(HttpStatus.UNAUTHORIZED, "¡Usuario no autorizado!", null);
+        }else
+        return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
+    }
+
+
+    public Response<Avatar> getAvatarUsuario(String idUsuario){
+        if(usuarioRepository.findById(idUsuario).isPresent()){
+            Avatar avatar = avatarRepository.findByIdUsuario(idUsuario);
+            return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", avatar);
         }else
         return new Response<>(HttpStatus.RESOURCE_NOT_FOUND, "¡Recurso no encontrado!", null);
     }

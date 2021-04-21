@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AvatarRepository extends MongoRepository<Avatar, String>{
     
+    public Avatar findByIdUsuario(String idUsuario);
 }

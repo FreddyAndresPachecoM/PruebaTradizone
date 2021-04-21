@@ -1,6 +1,7 @@
 package com.ista.tradizone.di.app.controller;
 
 import com.ista.tradizone.di.app.model.Usuario;
+import com.ista.tradizone.di.app.model.imagen.Avatar;
 import com.ista.tradizone.di.app.service.UsuarioService;
 import com.ista.tradizone.di.app.util.Response;
 
@@ -29,5 +30,10 @@ public class UsuarioController {
     @GetMapping("/usuarios/{idUsuario}/{token}")
     public Response<Usuario> getUsuarioPorId(@PathVariable String idUsuario,@PathVariable String token){
         return usuarioService.getUsuarioPorId(idUsuario, token);
+    }
+
+    @GetMapping("/usuarios/avatar/{idUsuario}")
+    public Response<Avatar> getAvatarUsuario(@PathVariable String idUsuario){
+        return usuarioService.getAvatarUsuario(idUsuario);
     }
 }
